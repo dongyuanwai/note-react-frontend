@@ -1,27 +1,17 @@
 import React, { useEffect, useState, useMemo } from 'react'
 
-function Child({data}){
-  useEffect(()=>{
-    console.log("查询条件",data)
-  },[data])
-  return <div>子组件</div>
-}
-
 function App() {
-  const [name,setName] = useState("")
-  const [phone,setPhone] = useState("")
-  const [kw,setKw] = useState("")
-
-  const data = useMemo(()=>({
-    name,
-    phone
-  }),[name,phone]) 
+  const [count,setCount] = useState(0)
+  const handleClick = ()=>{
+    setTimeout(()=>{
+      console.log("这是count的值"+count)
+    },3000)
+  }
   return (
     <div className="App">
-      <input onChange={(e) => setName(e.target.value)} type="text" placeholder='请输入姓名' />
-      <input onChange={(e) => setPhone(e.target.value)} type="text" placeholder='请输入电话' />
-      <input onChange={(e) => setKw(e.target.value)} type="text" placeholder='请输入关键词' />
-      <Child data={data}></Child>
+      <button onClick={()=>setCount(count+1)}>点击{count}此</button>
+      <button onClick={handleClick}>展示点击次数</button>
+      <h1>开始项目</h1>
     </div>
   )
 }
