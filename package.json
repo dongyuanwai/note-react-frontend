@@ -9,14 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "consola": "^2.15.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.4"
+    "react-router-dom": "^6.4.4",
+    "zarm": "^2.9.17"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
-    "vite": "^3.2.3"
+    "vite": "^3.2.3",
+    "vite-plugin-style-import": "^2.0.0"
   }
 }
