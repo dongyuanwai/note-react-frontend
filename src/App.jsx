@@ -10,7 +10,7 @@ import routes from '../src/router'
 import {ConfigProvider} from "zarm"
 import zhCN from 'zarm/lib/config-provider/locale/zh_CN'
 
-import NavBar from '@/container/Nav'
+import NavBar from '@/components/NavBar'
 import { useEffect } from 'react'
 
 function App() {
