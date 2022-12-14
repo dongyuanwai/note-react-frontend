@@ -1,10 +1,23 @@
-import React from 'react'
+import React,{useState,useCallback  } from 'react'
 import { Cell, Input, Button, Checkbox } from 'zarm'
 import CustomIcon from '@/components/CustomIcon'
+import Captcha from "react-captcha-code"
 
 import s from './style.module.less'
 
 const Login = () => {
+
+  const [username, setUsername] = useState(''); // 账号
+  const [password, setPassword] = useState(''); // 密码
+  const [verify, setVerify] = useState(''); // 验证码
+
+  const [captcha, setCaptcha] = useState(''); // 验证码变化后存储值
+  //  验证码变化，回调方法
+  const handleChange = useCallback((captcha) => {
+    console.log('captcha', captcha)
+    setCaptcha(captcha)
+  }, []);
+
   return <div className={s.auth}>
     <div className={s.head} />
     <div className={s.tab}>
@@ -16,6 +29,7 @@ const Login = () => {
           clearable
           type="text"
           placeholder="请输入账号"
+          onChange={(value) => setUsername(value)}
         />
       </Cell>
       <Cell icon={<CustomIcon type="mima" />}>
@@ -23,6 +37,7 @@ const Login = () => {
           clearable
           type="password"
           placeholder="请输入密码"
+          onChange={(value) => setUsername(value)}
         />
       </Cell>
       <Cell icon={<CustomIcon type="mima" />}>
@@ -30,7 +45,9 @@ const Login = () => {
             clearable
             type="text"
             placeholder="请输入验证码"
+            onChange={(value) => setVerify(value)}
           />
+          <Captcha charNum={4} onChange={handleChange} />
         </Cell>
     </div>
     <div className={s.operation}>
