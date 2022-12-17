@@ -4,12 +4,12 @@ import { Toast } from "zarm";
 
 const MODE = import.meta.env.MODE;
 
-axios.defaults.baseURL = MODE == 'development' ? 'http://api.chennick.wang':'http://api.chennick.wang'
+axios.defaults.baseURL = MODE == 'development' ? 'http://127.0.0.1:7001':'http://api.chennick.wang'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['Authorization'] = `${localStorage.getItem('token') || null}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-
+console.log("环境",MODE)
 axios.interceptors.response.use(res=>{
     if(typeof res.data !== 'object'){
         Toast.show("服务端异常！！！")

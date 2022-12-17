@@ -1,12 +1,15 @@
-import React,{useState,useCallback  } from 'react'
+import React,{useState,useCallback,useRef  } from 'react'
 import { Cell, Input, Button, Checkbox, Toast } from 'zarm'
 import CustomIcon from '@/components/CustomIcon'
 import Captcha from "react-captcha-code"
 import { post } from '@/utils'
+import cx from 'classnames'
 
 import s from './style.module.less'
 
 const Login = () => {
+  const captchaRef = useRef();
+  const [type, setType] = useState('login'); // 登录注册类型
 
   const [username, setUsername] = useState(''); // 账号
   const [password, setPassword] = useState(''); // 密码
@@ -20,7 +23,6 @@ const Login = () => {
   }, []);
 
   const onSubmit = async () => {
-    console.log("注册信息",username,password,verify)
     if (!username) {
       Toast.show('请输入账号')
       return
@@ -29,26 +31,44 @@ const Login = () => {
       Toast.show('请输入密码')
       return
     }
-    if (!verify) {
-      Toast.show('请输入验证码')
-      return
-    };
-    if (verify != captcha) {
-      Toast.show('验证码错误')
-      return
-    };
-    post('/api/user/register', {
-      username,
-      password
-    }).then(res => {
-      // do something
-    })
+    try {
+      // 判断是否是登录状态
+      if (type == 'login') {
+        // 执行登录接口，获取 token
+        const { data } = await post('/api/user/login', {
+          username,
+          password
+        });
+        Toast.show('登录成功')
+        // 将 token 写入 localStorage
+        localStorage.setItem('token', data.token);
+      } else {
+        if (!verify) {
+          Toast.show('请输入验证码')
+          return
+        };
+        if (verify != captcha) {
+          Toast.show('验证码错误')
+          return
+        };
+        const { data } = await post('/api/user/register', {
+          username,
+          password
+        });
+        Toast.show('注册成功');
+        // 注册成功，自动将 tab 切换到 login 状态
+        setType('login');
+      }
+    } catch (error) {
+      Toast.show('系统错误');
+    }
   };
 
   return <div className={s.auth}>
     <div className={s.head} />
-    <div className={s.tab}>
-      <span>注册</span>
+     <div className={s.tab}>
+      <span className={cx({ [s.active]: type == 'login' })} onClick={() => setType('login')}>登录</span>
+      <span className={cx({ [s.active]: type == 'register' })} onClick={() => setType('register')}>注册</span>
     </div>
     <div className={s.form}>
       <Cell icon={<CustomIcon type="zhanghao" />}>
@@ -67,22 +87,26 @@ const Login = () => {
           onChange={(value) => setPassword(value)}
         />
       </Cell>
-      <Cell icon={<CustomIcon type="mima" />}>
-          <Input
-            clearable
-            type="text"
-            placeholder="请输入验证码"
-            onChange={(value) => setVerify(value)}
-          />
-          <Captcha charNum={4} onChange={handleChange} />
-        </Cell>
+      {
+      type == 'register' ? <Cell icon={<CustomIcon type="mima" />}>
+        <Input
+          clearable
+          type="text"
+          placeholder="请输入验证码"
+          onChange={(value) => setVerify(value)}
+        />
+        <Captcha ref={captchaRef} charNum={4} onChange={handleChange} />
+      </Cell> : null
+    }
     </div>
     <div className={s.operation}>
-      <div className={s.agree}>
+    {
+      type == 'register' ? <div className={s.agree}>
         <Checkbox />
-        <label className="text-light">阅读并同意<a>《便捷记账条款》</a></label>
-      </div>
-      <Button onClick={onSubmit} block theme="primary">注册</Button>
+        <label className="text-light">阅读并同意<a>《掘掘手札条款》</a></label>
+      </div> : null
+    }
+    <Button onClick={onSubmit} block theme="primary">{type == 'login' ? '登录' : '注册'}</Button>
     </div>
   </div>
 }
