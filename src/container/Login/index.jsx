@@ -64,7 +64,7 @@ const Login = () => {
     }
   };
 
-  return <div className={s.auth}>
+  return (<div className={s.auth}>
     <div className={s.head} />
      <div className={s.tab}>
       <span className={cx({ [s.active]: type == 'login' })} onClick={() => setType('login')}>登录</span>
@@ -108,7 +108,7 @@ const Login = () => {
     }
     <Button onClick={onSubmit} block theme="primary">{type == 'login' ? '登录' : '注册'}</Button>
     </div>
-  </div>
+  </div>)
 }
 
 export default Login
