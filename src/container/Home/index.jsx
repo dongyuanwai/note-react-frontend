@@ -4,6 +4,8 @@ import dayjs from 'dayjs'
 import BillItem from '@/components/BillItem'
 import PopupType from '@/components/PopupType'
 import PopupDate from '@/components/PopupDate'
+import CustomIcon from '@/components/CustomIcon'
+import PopupAddBill from '@/components/PopupAddBill'
 
 import s from './style.module.less'
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils' // Pull 组件需要的一些常量
@@ -23,6 +25,10 @@ const Home = () => {
   const [currentSelect, setCurrentSelect] = useState({}); // 当前筛选类型
   const monthRef = useRef(); // 月份筛选 ref
 
+  const addRef = useRef(); // 添加账单 ref
+  const addToggle = () => {
+    addRef.current && addRef.current.show()
+  }
     useEffect(() => {
         getBillList() // 初始化
       }, [page,currentSelect,currentTime]) 
@@ -130,6 +136,8 @@ const Home = () => {
         </div>
         <PopupType ref={typeRef} onSelect={select} />
         <PopupDate ref={monthRef} mode="month" onSelect={selectMonth} />
+        <div className={s.add} onClick={addToggle}><CustomIcon type='tianjia' /></div>
+        <PopupAddBill ref={addRef} />
     </div>
     )
   }
