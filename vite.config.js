@@ -34,7 +34,7 @@ export default defineConfig({
     proxy: {
       '/api':{
         // 当遇到 /api 路径时 换成target的值
-        target: 'http://127.0.0.1:7001',
+        target: 'http://43.143.134.60:7001/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/,'')
       },
