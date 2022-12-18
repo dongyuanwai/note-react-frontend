@@ -4,6 +4,7 @@ import User from '@/container/User'
 import Login from '@/container/Login'
 import Detail from '@/container/Detail'
 import Account from '@/container/Account'
+import About from '@/container/About'
 import UserInfo from '@/container/UserInfo'
 
 const routes = [
@@ -34,6 +35,10 @@ const routes = [
   {
     path: "/userinfo",
     component: UserInfo
+  },
+  {
+    path: "/about",
+    component: About
   },
 ];
 

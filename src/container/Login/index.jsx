@@ -42,6 +42,7 @@ const Login = () => {
         Toast.show('登录成功')
         // 将 token 写入 localStorage
         localStorage.setItem('token', data.token);
+        window.location.href = '/'
       } else {
         if (!verify) {
           Toast.show('请输入验证码')
