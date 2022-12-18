@@ -72,3 +72,16 @@ export const typeMap = {
     failure: 4, // 加载失败
     complete: 5, // 加载完成（无新数据）
   };
+
+import { baseUrl } from 'config'
+const MODE = import.meta.env.MODE // 环境变量
+
+export const imgUrlTrans = (url) => {
+  if (url && url.startsWith('http')) {
+    return url
+  } else {
+    url = `${MODE == 'development' ? 'http://127.0.0.1:7001' : baseUrl}${url}`
+    return url
+  }
+}
+

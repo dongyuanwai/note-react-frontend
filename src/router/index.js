@@ -5,7 +5,7 @@ import Login from '@/container/Login'
 import Detail from '@/container/Detail'
 // import Account from '@/container/Account'
 // import About from '@/container/About'
-// import UserInfo from '@/container/UserInfo'
+import UserInfo from '@/container/UserInfo'
 
 const routes = [
   {
@@ -36,10 +36,10 @@ const routes = [
   //   path: "/about",
   //   component: About
   // },
-  // {
-  //   path: "/userinfo",
-  //   component: UserInfo
-  // },
+  {
+    path: "/userinfo",
+    component: UserInfo
+  },
 ];
 
 export default routes
