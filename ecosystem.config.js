@@ -8,7 +8,7 @@ module.exports = {
     deploy: {
       production: {
         user: 'root',
-        host: '43.143.134.60/',
+        host: '43.143.134.60',
         ref: 'origin/master',
         repo: 'git@github.com:dongyuanwai/note-react-frontend.git',
         path: '/note-react-frontend',
