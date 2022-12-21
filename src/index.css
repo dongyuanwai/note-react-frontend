@@ -11,6 +11,7 @@ body, html, p {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: gainsboro;
 }
 
 * {
@@ -27,4 +28,11 @@ body, html, p {
 
 .text-light {
   color: rgba(0, 0, 0, 0.6)
+}
+
+@media screen and (min-width: 700px) {
+  #root {
+    width: 400px;
+    margin: 0 auto;
+  }
 }
